@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartView — visible intelligence</title>
+<meta name="description" content="A model to measure whether a product explains itself: an audit of a finished system or a PRD section for a new one. 6 questions per element, 10 system tests, a score with number, letter and color.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/smartview/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/smartview/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/smartview/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+<style>
+  /* SmartView: questions table and score calculator */
+  .q{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  .q th,.q td{border-bottom:1px solid var(--line);padding:.7em .6em;text-align:left;vertical-align:top}
+  .q th{font-family:Sora;color:var(--amb);font-weight:700;white-space:nowrap}
+  .q td:first-child{font-family:'JetBrains Mono',monospace;color:var(--amb);white-space:nowrap}
+  .tablewrap{overflow-x:auto}
+  .calc{display:grid;grid-template-columns:1.4fr 1fr;gap:26px;align-items:start}
+  .calc .row{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:.55em 0;font-size:.93rem}
+  .calc .row span{flex:1}
+  .calc select{background:var(--bg2);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:.35em .5em;font:inherit;font-size:.88rem}
+  .score{position:sticky;top:90px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;text-align:center}
+  .score .n{font-family:Sora;font-weight:800;font-size:4.2rem;line-height:1;transition:color .2s}
+  .score .g{font-family:Sora;font-weight:800;font-size:1.6rem;margin-top:6px}
+  .score .bar{height:10px;border-radius:99px;background:var(--bg2);margin:18px 0 12px;overflow:hidden}
+  .score .bar i{display:block;height:100%;width:0;border-radius:99px;transition:width .25s,background .2s}
+  .score p{color:var(--mut);font-size:.9rem;margin:0}
+  .checks{list-style:none;padding:0;margin:0;font-family:'JetBrains Mono',monospace;font-size:.86rem}
+  .checks li{padding:.35em 0;color:var(--mut)} .checks li b{color:#22c55e;margin-right:.5em}
+  @media(max-width:820px){.calc{grid-template-columns:1fr}.score{position:static}}
+</style>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">👁️</span> SmartView</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">What it is</a>
+    <a class="sec" href="#fluxo">How it works</a>
+    <a class="sec" href="#guia">User guide</a>
+    <a class="sec" href="#nota">Score</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <a class="btn" href="https://github.com/inematds/smartview" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Audit · PRD · skill for agents</span>
+      <h1>A good product doesn't need to be <span class="amb">explained</span></h1>
+      <p class="lead">A rubric to measure whether a stranger understands your product in 5 seconds and reaches its value in 2 minutes. Use it to audit what is already live and to write the plan for what you are about to build.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Start the guide</a>
+        <a class="btn ghost" href="https://github.com/inematds/smartview" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-en.jpg" alt="SmartView banner: visible intelligence, the product that explains itself"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">In short</span>
+  <p>SmartView is a ready-to-copy text model that measures whether a digital product explains itself. It is for people who build systems, apps or websites, with or without AI agents. You can use it in two ways: as an <strong>audit</strong> of a system that already exists, or as a <strong>PRD section</strong> (the requirements document) for a system that is yet to be born. In the end you get a score with a number, a letter and a color, plus a short list of what to fix and what to remove. Nothing to install: just read and fill it in, or ask Claude Code or Codex to run the skill.</p>
+</div></section>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">What it is</span>
+  <h2>Shorten the distance between thought and result</h2>
+  <p class="sub">A flood of products is coming, and very few of them are well thought out. Care for what people see is what sets yours apart.</p>
+  <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-en.jpg" alt="The six pillars of the SmartView rubric" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="grid g3">
+    <div class="card"><h3>🔎 Audit</h3><p>For a finished system: the 5-second test, a timed path to first value, an inventory of elements and a fix plan of at most 7 items.</p></div>
+    <div class="card"><h3>📝 PRD section</h3><p>For a system in development: 10 gates that tell you whether it is worth building and testable experience requirements, with a done criterion for version 1.</p></div>
+    <div class="card"><h3>🤖 Skill for agents</h3><p>A skill that Claude Code or Codex follows to open the system, simulate personas, measure the timings and return the audit filled in.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">How it works</span>
+  <h2>Two layers, one score</h2>
+  <p class="sub">The 6 questions look at every button, field and screen. The 10 tests look at the whole product. Both roll up into a single score.</p>
+  <div class="flow">
+    <span>One-line promise</span><span class="arr">→</span>
+    <span>5-second test</span><span class="arr">→</span>
+    <span>Path to value</span><span class="arr">→</span>
+    <span>6 questions per element</span><span class="arr">→</span>
+    <span>10 system tests</span><span class="arr">→</span>
+    <span>Number + letter + color</span><span class="arr">→</span>
+    <span>Fix and remove</span>
+  </div>
+
+  <h3 style="margin-top:34px">The 6 questions for each element</h3>
+  <div class="tablewrap"><table class="q">
+    <tr><th>#</th><th>Question</th><th>Counts as "yes" when</th></tr>
+    <tr><td>E1</td><td>Can a stranger say what this is called?</td><td>They describe the element in their own words, with no tutorial.</td></tr>
+    <tr><td>E2</td><td>Do they know what happens when they press it?</td><td>The label states action and result ("Check this site"), not "Submit".</td></tr>
+    <tr><td>E3</td><td>Is the default right for most people?</td><td>The preset value works for 8 out of 10 people.</td></tr>
+    <tr><td>E4</td><td>Does it react visibly within a beat?</td><td>Something changes on screen within ~300 ms.</td></tr>
+    <tr><td>E5</td><td>Does it land where it promised?</td><td>After the action, the person is where the label said they would be.</td></tr>
+    <tr><td>E6</td><td>Would anyone miss it if it vanished?</td><td>If you remove it and nobody complains, nobody needed it. Add by subtracting.</td></tr>
+  </table></div>
+
+  <h3 style="margin-top:34px">The 10 system tests</h3>
+  <div class="grid g3">
+    <div class="card"><h3>S1 · 5 seconds</h3><p>A stranger sees the first screen for 5 s and says what the product does. If they get it wrong, the score is capped at D.</p></div>
+    <div class="card"><h3>S2 · Understands what it received</h3><p>Pasted a repository link? The button becomes "Check this repository". The screen shows it can handle what you gave it.</p></div>
+    <div class="card"><h3>S3 · Reaction &lt; 300 ms</h3><p>If the person waits for the button to change, you have already ruined the joke.</p></div>
+    <div class="card"><h3>S4 · Readable wait</h3><p>Named checks ticking ✓ one by one, like an antivirus. The wait stops being elevator music.</p></div>
+    <div class="card"><h3>S5 · Proof before the ask</h3><p>A few seconds of activity and a partial result that sparks curiosity. Only then ask for the e-mail.</p></div>
+    <div class="card"><h3>S6 · Value in 2 minutes</h3><p>A not-very-technical person, alone, proves the value to themselves with the fewest clicks.</p></div>
+    <div class="card"><h3>S7 · Number + grade + color</h3><p>A result you can read at a glance and share as a screenshot.</p></div>
+    <div class="card"><h3>S8 · Logged in lands in the lobby</h3><p>Someone who is already a user goes to their own space, never back to the sales page.</p></div>
+    <div class="card"><h3>S9 · Login is debt</h3><p>Every sign-in path brings OAuth, password reset, terms and cookies that have to work forever.</p></div>
+    <div class="card"><h3>S10 · Borrowed pattern</h3><p>Components from references that already work in the niche, not the model's average pattern or an invention from scratch.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Prerequisites</span>
+  <h2>What you need</h2>
+  <p class="sub">To use it on paper, nothing. For the agent to run on its own, the skill and a browser.</p>
+  <div class="grid g3">
+    <div class="card"><h3>📄 Manual use</h3><p>A text editor. The models are Markdown files in the <code>modelo/</code> folder (in Portuguese).</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/smartview</span></pre></div>
+    <div class="card"><h3>🤖 Claude Code</h3><p>Copy the skill into the user's skills folder.</p><pre><span class="k">cp -r</span> smartview/skill/smartview ~/.claude/skills/</pre></div>
+    <div class="card"><h3>🧠 Codex</h3><p>Codex reads skills from the user's agents folder.</p><pre><span class="k">cp -r</span> smartview/skill/smartview ~/.agents/skills/</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">User guide · step by step</span>
+  <h2>From zero to a score in 6 steps</h2>
+  <p class="sub">Steps 1 to 4 are for a finished system. If the system is still a plan, go straight to step 5.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Write the promise in one line</h3>
+    <p>If it doesn't fit on one line, the rest of the rubric will hurt. "Antivirus for apps built with AI" is better than "the Uber of X".</p>
+<pre><span class="c"># at the top of modelo/diagnostico.md</span>
+One-line promise: <span class="s">"________________"</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Run the 5-second test</h3>
+    <p>Show the first screen for 5 s to 3 outsiders and ask "what does this do?". With nobody at hand, ask the agent for 3 personas: a 55-year-old who is not very technical, an impatient young person who tried 100 products this week and a specialist in the niche.</p>
+<pre><span class="c"># in Claude Code or Codex, with the skill installed</span>
+<span class="k">smartview audit of</span> <span class="s">https://meusistema.com</span>: start with the 5-second test using 3 personas</pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Time the path to first value</h3>
+    <p>Walk the path as a new user. Note each step, the time until the screen reacts and when the system asks for an e-mail, a login or a card. Target: reaction under 300 ms and value proven in under 2 minutes.</p>
+<pre><span class="c"># in the browser console: time between the click and the first change on screen</span>
+<span class="k">const</span> t0=performance.now(); <span class="k">new</span> MutationObserver((m,o)=>{console.log(Math.round(performance.now()-t0)+<span class="s">' ms'</span>);o.disconnect()}).observe(document.body,{subtree:<span class="k">true</span>,childList:<span class="k">true</span>,characterData:<span class="k">true</span>,attributes:<span class="k">true</span>})
+<span class="c"># run the line above and click the button right after</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Run the 6 questions on each element and add up the score</h3>
+    <p>Fill in the elements table (2 / 1 / 0 per question) and the 10 tests (10 / 5 / 0). Anything that scores 0 on "would anyone miss it?" goes on the <strong>remove</strong> list, not the improve list.</p>
+<pre>SmartView = 0.6 × average of the system tests + 0.4 × average of the elements
+<span class="c"># S1 = 0 caps the final score at D</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>For a new system: paste the section into the PRD</h3>
+    <p>Copy <code>modelo/prd-secao.md</code> into your plan. Part A (10 gates) tells you whether it is worth building; part B becomes testable requirements; part C is the done criterion for version 1.</p>
+<pre><span class="k">cat</span> smartview/modelo/prd-secao.md <span class="k">&gt;&gt;</span> docs/PRD.md
+<span class="c"># or ask the agent:</span>
+<span class="k">add the smartview section to</span> <span class="s">docs/PRD.md</span>; whatever the plan doesn't answer, mark as an open question</pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Mock before coding, personas before launch</h3>
+    <p>Keep a short brand guide (colors, font, tone, 3 references from the niche) in <code>AGENTS.md</code> or <code>CLAUDE.md</code>, generate the screen as an image and approve it before building. Before launch, repeat tests S1 and S6 with the personas.</p>
+<pre><span class="c"># done criterion for version 1</span>
+SmartView ≥ 75 (B · light green), with S1 = 10 and S6 = 10</pre>
+  </div></div>
+</div></section>
+
+<section id="nota"><div class="wrap">
+  <span class="chip">Try it</span>
+  <h2>Score your product now</h2>
+  <p class="sub">Check the 10 system tests. The score here counts only that layer; in the full audit it is worth 60% and the elements 40%.</p>
+  <div class="calc">
+    <div id="tests"></div>
+    <div class="score" aria-live="polite">
+      <div class="n" id="sn">0</div>
+      <div class="g" id="sg">E · red</div>
+      <div class="bar"><i id="sb"></i></div>
+      <p id="sm">Check the tests on the left.</p>
+      <ul class="checks" id="sc" style="margin-top:16px;text-align:left"></ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>What exists and what is coming</h2>
+  <p class="sub">Version 1 is text and a skill. The rest comes in as usage shows what is needed.</p>
+  <div class="phase"><div class="tag">v1 · today</div><div class="d"><strong>Rubric, audit, PRD section and skill</strong><span>Markdown models in the modelo/ folder, a filled-in example in exemplos/ and the skill in skill/smartview.</span></div></div>
+  <div class="phase"><div class="tag">v2</div><div class="d"><strong>Automatic timing measurement</strong><span>A Playwright script that opens the system, clicks the main action and measures the reaction of each element.</span></div></div>
+  <div class="phase"><div class="tag">v3</div><div class="d"><strong>Evolution dashboard</strong><span>Compare the score across versions of the same product and see what went up after each fix.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Markdown</div><div class="pill">Claude Code</div><div class="pill">Codex</div>
+    <p style="margin-top:18px">SmartView · visible intelligence ·
+      <a href="https://github.com/inematds/smartview">inematds/smartview</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='smartview-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+  (function(){
+    var TESTS=['S1 · A stranger understands in 5 seconds','S2 · The action changes with the input','S3 · Reacts in under 300 ms','S4 · The wait shows checks','S5 · Shows value before asking for an e-mail','S6 · Value proven in 2 minutes','S7 · Result with number, grade and color','S8 · Logged in lands in their own space','S9 · Only the necessary logins','S10 · Patterns borrowed from the niche'];
+    var OPT=[['0','fail'],['5','partial'],['10','pass']];
+    var FAIXAS=[[90,'A','green','#22c55e','It explains itself. Change little.'],[75,'B','light green','#84cc16','Good; a few points of friction.'],[60,'C','amber','#E2A23B','It works, but needs explaining.'],[40,'D','orange','#f97316','The person needs a tutorial to reach the value.'],[0,'E','red','#ef4444','Features will not save it: a stranger does not understand it in 5 s.']];
+    var box=document.getElementById('tests');
+    TESTS.forEach(function(nome,i){
+      var r=document.createElement('label'); r.className='row';
+      var s=document.createElement('span'); s.textContent=nome; r.appendChild(s);
+      var sel=document.createElement('select'); sel.dataset.i=i; sel.setAttribute('aria-label',nome);
+      OPT.forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];sel.appendChild(op);});
+      sel.addEventListener('change',calc); r.appendChild(sel); box.appendChild(r);
+    });
+    function calc(){
+      var sels=box.querySelectorAll('select'), soma=0, ok=[];
+      sels.forEach(function(s,i){var v=+s.value; soma+=v; if(v===10) ok.push(TESTS[i].split(' · ')[0]);});
+      var n=Math.round(soma/sels.length*10), s1=+sels[0].value;
+      if(s1===0 && n>=60) n=Math.min(n,59);
+      var f=FAIXAS.find(function(x){return n>=x[0];});
+      document.getElementById('sn').textContent=n;
+      document.getElementById('sn').style.color=f[3];
+      document.getElementById('sg').textContent=f[1]+' · '+f[2];
+      document.getElementById('sg').style.color=f[3];
+      var bar=document.getElementById('sb'); bar.style.width=n+'%'; bar.style.background=f[3];
+      document.getElementById('sm').textContent=f[4]+(s1===0&&soma>0?' (S1 = 0 caps it at D)':'');
+      document.getElementById('sc').innerHTML=ok.map(function(k){return '<li><b>✓</b>'+k+'</li>';}).join('');
+    }
+    calc();
+  })();
+</script>
+</body>
+</html>

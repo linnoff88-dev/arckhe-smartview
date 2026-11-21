@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartView — inteligência visível</title>
+<meta name="description" content="Modelo para medir se um produto se explica sozinho: diagnóstico de sistema pronto ou seção do PRD de um sistema novo. 6 perguntas por elemento, 10 testes de sistema, nota com número, letra e cor.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/smartview/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/smartview/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/smartview/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+<style>
+  /* SmartView: tabela das perguntas e calculadora de nota */
+  .q{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+  .q th,.q td{border-bottom:1px solid var(--line);padding:.7em .6em;text-align:left;vertical-align:top}
+  .q th{font-family:Sora;color:var(--amb);font-weight:700;white-space:nowrap}
+  .q td:first-child{font-family:'JetBrains Mono',monospace;color:var(--amb);white-space:nowrap}
+  .tablewrap{overflow-x:auto}
+  .calc{display:grid;grid-template-columns:1.4fr 1fr;gap:26px;align-items:start}
+  .calc .row{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:.55em 0;font-size:.93rem}
+  .calc .row span{flex:1}
+  .calc select{background:var(--bg2);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:.35em .5em;font:inherit;font-size:.88rem}
+  .score{position:sticky;top:90px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;text-align:center}
+  .score .n{font-family:Sora;font-weight:800;font-size:4.2rem;line-height:1;transition:color .2s}
+  .score .g{font-family:Sora;font-weight:800;font-size:1.6rem;margin-top:6px}
+  .score .bar{height:10px;border-radius:99px;background:var(--bg2);margin:18px 0 12px;overflow:hidden}
+  .score .bar i{display:block;height:100%;width:0;border-radius:99px;transition:width .25s,background .2s}
+  .score p{color:var(--mut);font-size:.9rem;margin:0}
+  .checks{list-style:none;padding:0;margin:0;font-family:'JetBrains Mono',monospace;font-size:.86rem}
+  .checks li{padding:.35em 0;color:var(--mut)} .checks li b{color:#22c55e;margin-right:.5em}
+  @media(max-width:820px){.calc{grid-template-columns:1fr}.score{position:static}}
+</style>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">👁️</span> SmartView</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#nota">Nota</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/smartview" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Diagnóstico · PRD · skill para agentes</span>
+      <h1>Produto bom não precisa ser <span class="amb">explicado</span></h1>
+      <p class="lead">Uma rubrica para medir se um estranho entende o seu produto em 5 segundos e chega ao valor em 2 minutos. Serve para auditar o que já está no ar e para escrever o plano do que você vai construir.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/smartview" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/banner.jpg" alt="Banner SmartView: inteligência visível, o produto que se explica sozinho"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">Em resumo</span>
+  <p>SmartView é um modelo em texto, pronto para copiar, que mede se um produto digital se explica sozinho. Serve para quem cria sistemas, apps ou sites, com ou sem agentes de IA. Você usa de dois jeitos: como <strong>diagnóstico</strong> de um sistema que já existe, ou como <strong>seção do PRD</strong> (o documento de requisitos) de um sistema que ainda vai nascer. No fim sai uma nota com número, letra e cor, e uma lista curta do que corrigir e do que remover. Não precisa instalar nada: é só ler e preencher, ou pedir para o Claude Code ou o Codex rodar a skill.</p>
+</div></section>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Encurtar a distância entre o pensamento e o resultado</h2>
+  <p class="sub">Vem aí uma enxurrada de produtos e pouquíssimos pensados. O cuidado com o que a pessoa vê é o que separa o seu.</p>
+  <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="assets/banner-grade.jpg" alt="Os seis pilares da rubrica SmartView" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="grid g3">
+    <div class="card"><h3>🔎 Diagnóstico</h3><p>Para sistema pronto: teste dos 5 segundos, caminho até o primeiro valor cronometrado, inventário de elementos e plano de correção de no máximo 7 itens.</p></div>
+    <div class="card"><h3>📝 Seção do PRD</h3><p>Para sistema em desenvolvimento: 10 portões que dizem se vale construir e requisitos de experiência testáveis, com critério de pronto da versão 1.</p></div>
+    <div class="card"><h3>🤖 Skill para agentes</h3><p>Uma skill que o Claude Code ou o Codex segue para abrir o sistema, simular personas, medir os tempos e devolver o diagnóstico preenchido.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Duas camadas, uma nota</h2>
+  <p class="sub">As 6 perguntas olham cada botão, campo e tela. Os 10 testes olham o produto inteiro. As duas viram uma nota única.</p>
+  <div class="flow">
+    <span>Promessa em 1 linha</span><span class="arr">→</span>
+    <span>Teste dos 5 segundos</span><span class="arr">→</span>
+    <span>Caminho até o valor</span><span class="arr">→</span>
+    <span>6 perguntas por elemento</span><span class="arr">→</span>
+    <span>10 testes de sistema</span><span class="arr">→</span>
+    <span>Número + letra + cor</span><span class="arr">→</span>
+    <span>Corrigir e remover</span>
+  </div>
+
+  <h3 style="margin-top:34px">As 6 perguntas para cada elemento</h3>
+  <div class="tablewrap"><table class="q">
+    <tr><th>#</th><th>Pergunta</th><th>Conta como "sim" quando</th></tr>
+    <tr><td>E1</td><td>Um estranho sabe dizer o nome disso?</td><td>Descreve o elemento com as próprias palavras, sem tutorial.</td></tr>
+    <tr><td>E2</td><td>Sabe o que acontece quando apertar?</td><td>O rótulo diz ação e resultado ("Verificar este site"), não "Enviar".</td></tr>
+    <tr><td>E3</td><td>O padrão está certo para a maioria?</td><td>O valor que já vem serve para 8 em cada 10 pessoas.</td></tr>
+    <tr><td>E4</td><td>Reage de forma visível em um compasso?</td><td>Algo muda na tela em até ~300 ms.</td></tr>
+    <tr><td>E5</td><td>Cai onde prometeu?</td><td>Depois da ação, a pessoa está onde o rótulo dizia.</td></tr>
+    <tr><td>E6</td><td>Alguém sentiria falta se sumisse?</td><td>Se tirar e ninguém reclamar, ninguém precisava. Somar subtraindo.</td></tr>
+  </table></div>
+
+  <h3 style="margin-top:34px">Os 10 testes de sistema</h3>
+  <div class="grid g3">
+    <div class="card"><h3>S1 · 5 segundos</h3><p>Um estranho vê a primeira tela por 5 s e diz o que o produto faz. Se errar, a nota trava em D.</p></div>
+    <div class="card"><h3>S2 · Entende o que recebeu</h3><p>Colou um link de repositório? O botão vira "Verificar este repositório". A tela mostra que aguenta o que você deu.</p></div>
+    <div class="card"><h3>S3 · Reação &lt; 300 ms</h3><p>Se a pessoa espera o botão mudar, você já explicou a piada.</p></div>
+    <div class="card"><h3>S4 · Espera legível</h3><p>Checagens nomeadas marcando ✓ uma a uma, como um antivírus. A espera vira música de elevador.</p></div>
+    <div class="card"><h3>S5 · Prova antes do pedido</h3><p>Alguns segundos de atividade e um resultado parcial que abre curiosidade. Só depois pede o e-mail.</p></div>
+    <div class="card"><h3>S6 · Valor em 2 minutos</h3><p>Uma pessoa pouco técnica, sozinha, prova o valor para si mesma com o menor número de cliques.</p></div>
+    <div class="card"><h3>S7 · Número + nota + cor</h3><p>Resultado que se lê de relance e que dá para mandar por print.</p></div>
+    <div class="card"><h3>S8 · Logado cai no saguão</h3><p>Quem já é usuário vai para o próprio espaço, nunca de volta para a página de venda.</p></div>
+    <div class="card"><h3>S9 · Login é dívida</h3><p>Cada caminho de entrada traz OAuth, troca de senha, termos e cookies que têm de funcionar para sempre.</p></div>
+    <div class="card"><h3>S10 · Padrão emprestado</h3><p>Componentes de referências que já funcionam no nicho, não o padrão médio do modelo nem invenção do zero.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>O que você precisa</h2>
+  <p class="sub">Para usar no papel, nada. Para o agente rodar sozinho, a skill e um navegador.</p>
+  <div class="grid g3">
+    <div class="card"><h3>📄 Uso manual</h3><p>Um editor de texto. Os modelos estão em Markdown na pasta <code>modelo/</code>.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/smartview</span></pre></div>
+    <div class="card"><h3>🤖 Claude Code</h3><p>Copie a skill para a pasta de skills do usuário.</p><pre><span class="k">cp -r</span> smartview/skill/smartview ~/.claude/skills/</pre></div>
+    <div class="card"><h3>🧠 Codex</h3><p>O Codex lê skills da pasta de agentes do usuário.</p><pre><span class="k">cp -r</span> smartview/skill/smartview ~/.agents/skills/</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Do zero à nota em 6 passos</h2>
+  <p class="sub">Os passos 1 a 4 são para sistema pronto. Se o sistema ainda é plano, vá direto ao passo 5.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Escreva a promessa em uma linha</h3>
+    <p>Se não cabe em uma linha, o resto da rubrica vai doer. "Antivírus para apps feitos com IA" é melhor que "o Uber de X".</p>
+<pre><span class="c"># no topo de modelo/diagnostico.md</span>
+Promessa em uma linha: <span class="s">"________________"</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Rode o teste dos 5 segundos</h3>
+    <p>Mostre a primeira tela por 5 s a 3 pessoas de fora e pergunte "o que isso faz?". Sem pessoas à mão, peça ao agente 3 personas: uma pessoa de 55 anos pouco técnica, um jovem impaciente que testou 100 produtos esta semana e um especialista do nicho.</p>
+<pre><span class="c"># no Claude Code ou Codex, com a skill instalada</span>
+<span class="k">diagnóstico smartview</span> de <span class="s">https://meusistema.com</span>: comece pelo teste dos 5 segundos com 3 personas</pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Cronometre o caminho até o primeiro valor</h3>
+    <p>Faça o caminho como pessoa nova. Anote cada passo, o tempo até a tela reagir e quando o sistema pede e-mail, login ou cartão. Meta: reação abaixo de 300 ms e valor provado em menos de 2 minutos.</p>
+<pre><span class="c"># no console do navegador: tempo entre o clique e a primeira mudança na tela</span>
+<span class="k">const</span> t0=performance.now(); <span class="k">new</span> MutationObserver((m,o)=>{console.log(Math.round(performance.now()-t0)+<span class="s">' ms'</span>);o.disconnect()}).observe(document.body,{subtree:<span class="k">true</span>,childList:<span class="k">true</span>,characterData:<span class="k">true</span>,attributes:<span class="k">true</span>})
+<span class="c"># rode a linha acima e clique no botão logo em seguida</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Passe as 6 perguntas em cada elemento e some a nota</h3>
+    <p>Preencha a tabela de elementos (2 / 1 / 0 por pergunta) e os 10 testes (10 / 5 / 0). Quem tirar 0 em "faria falta?" vai para a lista de <strong>remover</strong>, não de melhorar.</p>
+<pre>SmartView = 0,6 × média dos testes de sistema + 0,4 × média dos elementos
+<span class="c"># S1 = 0 limita a nota final a D</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>No sistema novo: cole a seção no PRD</h3>
+    <p>Copie <code>modelo/prd-secao.md</code> para o seu plano. A parte A (10 portões) diz se vale construir; a parte B vira requisitos testáveis; a parte C é o critério de pronto da versão 1.</p>
+<pre><span class="k">cat</span> smartview/modelo/prd-secao.md <span class="k">&gt;&gt;</span> docs/PRD.md
+<span class="c"># ou peça ao agente:</span>
+<span class="k">adiciona a seção smartview</span> no <span class="s">docs/PRD.md</span>; o que o plano não responder, marque como pergunta aberta</pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Mock antes de codar, personas antes de lançar</h3>
+    <p>Guarde um guia de marca curto (cores, fonte, tom, 3 referências do nicho) no <code>AGENTS.md</code> ou <code>CLAUDE.md</code>, gere a tela em imagem e aprove antes de construir. Antes do lançamento, repita os testes S1 e S6 com as personas.</p>
+<pre><span class="c"># critério de pronto da versão 1</span>
+SmartView ≥ 75 (B · verde-claro), com S1 = 10 e S6 = 10</pre>
+  </div></div>
+</div></section>
+
+<section id="nota"><div class="wrap">
+  <span class="chip">Experimente</span>
+  <h2>Dê a nota do seu produto agora</h2>
+  <p class="sub">Marque os 10 testes de sistema. A nota aqui considera só essa camada; no diagnóstico completo ela vale 60% e os elementos, 40%.</p>
+  <div class="calc">
+    <div id="tests"></div>
+    <div class="score" aria-live="polite">
+      <div class="n" id="sn">0</div>
+      <div class="g" id="sg">E · vermelho</div>
+      <div class="bar"><i id="sb"></i></div>
+      <p id="sm">Marque os testes ao lado.</p>
+      <ul class="checks" id="sc" style="margin-top:16px;text-align:left"></ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>O que existe e o que vem</h2>
+  <p class="sub">Versão 1 é texto e skill. O resto entra conforme o uso mostrar.</p>
+  <div class="phase"><div class="tag">v1 · hoje</div><div class="d"><strong>Rubrica, diagnóstico, seção do PRD e skill</strong><span>Modelos em Markdown na pasta modelo/, exemplo preenchido em exemplos/ e a skill em skill/smartview.</span></div></div>
+  <div class="phase"><div class="tag">v2</div><div class="d"><strong>Medição automática de tempo</strong><span>Script Playwright que abre o sistema, clica na ação principal e mede a reação de cada elemento.</span></div></div>
+  <div class="phase"><div class="tag">v3</div><div class="d"><strong>Painel de evolução</strong><span>Comparar a nota entre versões do mesmo produto e ver o que subiu depois de cada correção.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Markdown</div><div class="pill">Claude Code</div><div class="pill">Codex</div>
+    <p style="margin-top:18px">SmartView · inteligência visível ·
+      <a href="https://github.com/inematds/smartview">inematds/smartview</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='smartview-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+  (function(){
+    var TESTS=['S1 · Um estranho entende em 5 segundos','S2 · A ação muda conforme a entrada','S3 · Reage em menos de 300 ms','S4 · A espera mostra checagens','S5 · Mostra valor antes de pedir e-mail','S6 · Valor provado em 2 minutos','S7 · Resultado com número, nota e cor','S8 · Logado cai no próprio espaço','S9 · Só os logins necessários','S10 · Padrões emprestados do nicho'];
+    var OPT=[['0','falha'],['5','parcial'],['10','passa']];
+    var FAIXAS=[[90,'A','verde','#22c55e','Se explica sozinho. Mexer pouco.'],[75,'B','verde-claro','#84cc16','Bom; alguns pontos de atrito.'],[60,'C','âmbar','#E2A23B','Funciona, mas pede explicação.'],[40,'D','laranja','#f97316','A pessoa precisa de tutorial para chegar ao valor.'],[0,'E','vermelho','#ef4444','Recursos não vão salvar: um estranho não entende em 5 s.']];
+    var box=document.getElementById('tests');
+    TESTS.forEach(function(nome,i){
+      var r=document.createElement('label'); r.className='row';
+      var s=document.createElement('span'); s.textContent=nome; r.appendChild(s);
+      var sel=document.createElement('select'); sel.dataset.i=i; sel.setAttribute('aria-label',nome);
+      OPT.forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];sel.appendChild(op);});
+      sel.addEventListener('change',calc); r.appendChild(sel); box.appendChild(r);
+    });
+    function calc(){
+      var sels=box.querySelectorAll('select'), soma=0, ok=[];
+      sels.forEach(function(s,i){var v=+s.value; soma+=v; if(v===10) ok.push(TESTS[i].split(' · ')[0]);});
+      var n=Math.round(soma/sels.length*10), s1=+sels[0].value;
+      if(s1===0 && n>=60) n=Math.min(n,59);
+      var f=FAIXAS.find(function(x){return n>=x[0];});
+      document.getElementById('sn').textContent=n;
+      document.getElementById('sn').style.color=f[3];
+      document.getElementById('sg').textContent=f[1]+' · '+f[2];
+      document.getElementById('sg').style.color=f[3];
+      var bar=document.getElementById('sb'); bar.style.width=n+'%'; bar.style.background=f[3];
+      document.getElementById('sm').textContent=f[4]+(s1===0&&soma>0?' (S1 = 0 trava em D)':'');
+      document.getElementById('sc').innerHTML=ok.map(function(k){return '<li><b>✓</b>'+k+'</li>';}).join('');
+    }
+    calc();
+  })();
+</script>
+</body>
+</html>
