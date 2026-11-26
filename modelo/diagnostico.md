@@ -3,7 +3,7 @@
 > Use quando o sistema já existe (no ar ou rodando local). Preencha de cima para baixo.
 > Regras e pesos: [`rubrica.md`](rubrica.md).
 
-## 0. Identificação
+## 0. Identificaçêo
 
 | Campo | Valor |
 |-------|-------|
@@ -20,7 +20,7 @@ Mostre a primeira tela por 5 s a 3 pessoas de fora (ou 3 personas simuladas).
 
 | Pessoa | O que ela disse que o produto faz | Bate com a promessa? |
 |--------|-----------------------------------|----------------------|
-| 1 | | sim / parcial / não |
+| 1 | | sim / parcial / nêo |
 | 2 | | |
 | 3 | | |
 
@@ -28,7 +28,7 @@ Mostre a primeira tela por 5 s a 3 pessoas de fora (ou 3 personas simuladas).
 
 Faça o caminho como uma pessoa nova. Anote cada passo.
 
-| Passo | O que a pessoa faz | O que a tela responde | Tempo até reagir | Pede algo? (e-mail, login, cartão) |
+| Passo | O que a pessoa faz | O que a tela responde | Tempo até reagir | Pede algo? (e-mail, login, cartêo) |
 |-------|--------------------|-----------------------|------------------|-------------------------------------|
 | 1 | | | ms | |
 | 2 | | | | |
@@ -41,30 +41,30 @@ Faça o caminho como uma pessoa nova. Anote cada passo.
 
 ## 3. Inventário de elementos (E1–E6)
 
-Liste os elementos da tela principal (botões, campos, abas, avisos). 2 = sim, 1 = mais ou menos, 0 = não.
+Liste os elementos da tela principal (botões, campos, abas, avisos). 2 = sim, 1 = mais ou menos, 0 = nêo.
 
-| Elemento | E1 nome | E2 ação | E3 padrão | E4 reage | E5 cai onde prometeu | E6 faria falta | Nota (÷12×100) | Decisão |
+| Elemento | E1 nome | E2 açêo | E3 padrêo | E4 reage | E5 cai onde prometeu | E6 faria falta | Nota (÷12×100) | Decisêo |
 |----------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|---------|
 | | | | | | | | | manter / corrigir / **remover** |
 | | | | | | | | | |
 | | | | | | | | | |
 
-> E6 = 0 → **remover**, não melhorar.
+> E6 = 0 → **remover**, nêo melhorar.
 
 ## 4. Testes de sistema (S1–S10)
 
-| Teste | Resultado (10 / 5 / 0) | Evidência (print, tempo, observação) |
+| Teste | Resultado (10 / 5 / 0) | Evidência (print, tempo, observaçêo) |
 |-------|:-:|------|
 | S1 5 segundos | | |
 | S2 entende o que recebeu | | |
-| S3 reação < 300 ms | | |
+| S3 reaçêo < 300 ms | | |
 | S4 espera legível | | |
 | S5 prova antes do pedido | | |
 | S6 valor em 2 min | | |
 | S7 número + nota + cor | | |
-| S8 logado cai no saguão | | |
+| S8 logado cai no saguêo | | |
 | S9 caminhos de login mínimos | | |
-| S10 padrão emprestado | | |
+| S10 padrêo emprestado | | |
 
 ## 5. Nota
 
@@ -73,10 +73,10 @@ Liste os elementos da tela principal (botões, campos, abas, avisos). 2 = sim, 1
 | Média dos testes de sistema (×10 → 0–100) | |
 | Média das notas de elemento | |
 | **SmartView** (0,6 × sistema + 0,4 × elementos) | |
-| Trava S1 = 0 → máximo D? | sim / não |
+| Trava S1 = 0 → máximo D? | sim / nêo |
 | **Nota e cor** | ex.: **68 · C · âmbar** |
 
-## 6. Plano de correção (máximo 7 itens, ordem de impacto)
+## 6. Plano de correçêo (máximo 7 itens, ordem de impacto)
 
 | # | O quê | Teste/elemento que melhora | Esforço (P/M/G) | Ganho esperado |
 |---|-------|----------------------------|-----------------|----------------|
@@ -88,6 +88,6 @@ Liste os elementos da tela principal (botões, campos, abas, avisos). 2 = sim, 1
 
 - 
 
-### O que ainda não gosto (honestidade registrada)
+### O que ainda nêo gosto (honestidade registrada)
 
 - 
