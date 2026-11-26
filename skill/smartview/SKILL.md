@@ -13,7 +13,7 @@ Arquivos de referência (ler antes de começar):
 - `modelo/diagnostico.md` — modelo para sistema pronto.
 - `modelo/prd-secao.md` — bloco para PRD/plano de sistema novo.
 
-Se a skill estiver instalada fora do repo, os arquivos ficam em `https://github.com/inematds/smartview/tree/main/modelo`.
+Se a skill estiver instalada fora do repo, os arquivos ficam em `https://github.com/linnoff88-dev/smartview/tree/main/modelo`.
 
 ## Modo 1 — diagnóstico (sistema pronto)
 

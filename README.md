@@ -8,7 +8,7 @@
 
 **ê°Å¸â¡Â§ê°Å¸â¡Â· [PortuguêÂªs](README.md) êÂ· ê°Å¸â¡Âºê°Å¸â¡Â¸ [English](README.en.md) êÂ· ê°Å¸â¡Âªê°Å¸â¡Â¸ [EspaêÂ±ol](README.es.md)**
 
-[![SmartView ê¢â¬â inteligêÂªncia visêÂ­vel](guia/assets/banner.jpg)](https://inematds.github.io/smartview/guia/)
+[![SmartView ê¢â¬â inteligêÂªncia visêÂ­vel](guia/assets/banner.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/)
 
 ## O que êÂ©
 
@@ -16,7 +16,7 @@ SmartView êÂ© um modelo em texto, pronto para copiar, que mede se um produt
 
 ## ê°Å¸ââ Guia de uso
 
-Guia completo (landing + passo a passo + calculadora de nota): **https://inematds.github.io/smartview/guia/**
+Guia completo (landing + passo a passo + calculadora de nota): **https://linnoff88-dev.github.io/arckhe-/guia/**
 
 ## O que tem aqui
 
@@ -31,7 +31,7 @@ Guia completo (landing + passo a passo + calculadora de nota): **https://inematd
 ## Uso rêÂ¡pido
 
 ```bash
-git clone https://github.com/inematds/smartview
+git clone https://github.com/linnoff88-dev/smartview
 cp -r smartview/skill/smartview ~/.claude/skills/   # Claude Code
 cp -r smartview/skill/smartview ~/.agents/skills/   # Codex
 ```
@@ -47,7 +47,7 @@ Depois, no agente:
 
 ---
 
-Projeto aberto do [INEMA.CLUB](https://inema.club). LicenêÂ§a MIT.
+Projeto aberto do [ARCKHÉ AI](https://ARCKHÉ AI). LicenêÂ§a MIT.
 
 ---
 

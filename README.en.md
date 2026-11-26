@@ -2,7 +2,7 @@
 
 **🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
 
-[![SmartView — visible intelligence](guia/assets/banner-en.jpg)](https://inematds.github.io/smartview/guia/en/)
+[![SmartView — visible intelligence](guia/assets/banner-en.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/en/)
 
 ## What it is
 
@@ -10,7 +10,7 @@ SmartView is a ready-to-copy text model that measures whether a digital product 
 
 ## 📖 User guide
 
-Full guide (landing + step by step + score calculator): **https://inematds.github.io/smartview/guia/en/**
+Full guide (landing + step by step + score calculator): **https://linnoff88-dev.github.io/arckhe-/guia/en/**
 
 ## What's in here
 
@@ -25,7 +25,7 @@ Full guide (landing + step by step + score calculator): **https://inematds.githu
 ## Quick start
 
 ```bash
-git clone https://github.com/inematds/smartview
+git clone https://github.com/linnoff88-dev/smartview
 cp -r smartview/skill/smartview ~/.claude/skills/   # Claude Code
 cp -r smartview/skill/smartview ~/.agents/skills/   # Codex
 ```
@@ -41,4 +41,4 @@ Then, in the agent:
 
 ---
 
-An open project of [INEMA.CLUB](https://inema.club). MIT License.
+An open project of [ARCKHÉ AI](https://ARCKHÉ AI). MIT License.
